@@ -35,7 +35,7 @@ public class DesktopApplication extends Application {
 
         });
 
-        // Create layout for interface
+        // create layout for interface
         VBox vbox = new VBox(10, new Label("Number of Vertices:"), numVerticesField,
                 new Label("Number of Edges:"), numEdgesField, invokeButton, responseArea);
         Scene scene = new Scene(vbox, 400, 400);
@@ -48,7 +48,7 @@ public class DesktopApplication extends Application {
 
     private String invokeServlet(String numVertices, String numEdges) {
         try {
-            // Send parameters numVertices and numEdges in the URL
+            // send parameters numVertices and numEdges in the URL
             String urlString = String.format("http://localhost:8080/Homework_war_exploded/generateGraph?numVertices=%s&numEdges=%s",
                     numVertices, numEdges);
             URL url = new URL(urlString);
@@ -84,7 +84,7 @@ public class DesktopApplication extends Application {
         if (tableStart != -1 && tableEnd != -1) {
             String tableContent = htmlResponse.substring(tableStart, tableEnd);
 
-            // Extract each row (tr) from the table
+            // extract each row (tr) from the table
             String[] rows = tableContent.split("<tr>");
             for (String row : rows) {
                 if (row.contains("<td>")) {
@@ -92,7 +92,7 @@ public class DesktopApplication extends Application {
                     String[] cells = row.split("<td>");
                     for (String cell : cells) {
                         if (cell.contains("</td>")) {
-                            // Extract the value inside the <td> tag
+                            // extract the value inside the <td> tag
                             String cellValue = cell.substring(0, cell.indexOf("</td>")).trim();
                             matrix.append(cellValue).append(" ");
                         }
