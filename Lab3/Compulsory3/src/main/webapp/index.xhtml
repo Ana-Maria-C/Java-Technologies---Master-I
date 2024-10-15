@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+>
+<h:head>
+    <title>Hello World JSF Application</title>
+    <link rel ="stylesheet" href="dataTables/css/dataTables.css"/>
+    <script type="text/javascript" src="dataTables/js/dataTables.js"></script>
+</h:head>
+<h:body>
+    <h:form id="productForm">
+        <h2>Products Available</h2>
+
+        <h:dataTable var="product" value="#{productBean.products}" border="1" cellpadding="10">
+            <!-- Header Row -->
+            <h:column>
+                <h:outputText value="ID: " />
+                <h:outputText value="#{product.id}" />
+            </h:column>
+
+            <h:column>
+                <h:outputText value="Name: " />
+                <h:outputText value="#{product.name}" />
+            </h:column>
+
+            <h:column>
+                <h:outputText value="Price: " />
+                <h:outputText value="#{product.price}" />
+            </h:column>
+
+            <h:column>
+                <h:outputText value="Description: " />
+                <h:outputText value="#{product.description}" />
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</h:body>
+</html>
