@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+>
+
+<h:head>
+    <title>#{msg['welcome.title']}</title>
+</h:head>
+
+<h:body>
+    <h:form>
+        <h:selectOneMenu value="#{localeBean.currentLocale}" onchange="this.form.submit()">
+            <f:selectItem itemValue="en" itemLabel="English" />
+            <f:selectItem itemValue="ro" itemLabel="Română" />
+            <f:ajax render="@form" />
+        </h:selectOneMenu>
+    </h:form>
+
+    <h1>#{msg['welcome.message']}</h1>
+
+    <h:form>
+        <h:commandLink value="#{msg['see.clients']}" action="goToClients" />
+        <br/>
+        <h:commandLink value="#{msg['see.products']}" action="goToProducts" />
+    </h:form>
+</h:body>
+</html>

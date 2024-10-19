@@ -1,0 +1,51 @@
+<faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+              https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
+              version="4.0">
+
+    <application>
+        <resource-bundle>
+            <base-name>messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+    </application>
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>goToClients</from-outcome>
+            <to-view-id>/client.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>goToProducts</from-outcome>
+            <to-view-id>/product.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/product.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>goToIndex</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/client.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>addClient</from-outcome>
+            <to-view-id>/client.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editClient</from-outcome>
+            <to-view-id>/client.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>goToIndex</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>
+
