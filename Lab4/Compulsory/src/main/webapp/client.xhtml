@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Clients List</title>
+    <link rel="stylesheet" href="dataTables/css/dataTables.css"/>
+    <script type="text/javascript" src="dataTables/js/dataTables.js"></script>
+</h:head>
+
+<h:body>
+    <h:form id="clientForm">
+        <h2>Available Clients</h2>
+
+        <div class="toolbar">
+            <p:commandButton value="New Client" action="#{clientBean.prepareNewClient()}"  oncomplete="PF('clientDialog').show()" icon="pi pi-plus" styleClass="add-btn" />
+        </div>
+
+        <p:dataTable var="client" value="#{clientBean.clients}"
+                     emptyMessage="No clients found."
+                     style="width: 100%; margin-top: 20px;"
+                     id="clientsTable">
+
+            <p:column headerText="ID" style="width: 10%">
+                <h:outputText value="#{client.id}" />
+            </p:column>
+
+            <p:column headerText="Name" style="width: 30%">
+                <h:outputText value="#{client.name}" />
+            </p:column>
+
+            <p:column headerText="Email" style="width: 25%">
+                <h:outputText value="#{client.email}" />
+            </p:column>
+
+            <p:column headerText="Phone Number" style="width: 20%">
+                <h:outputText value="#{client.phone}" />
+            </p:column>
+
+            <p:column headerText="Address" style="width: 25%">
+                <h:outputText value="#{client.address}" />
+            </p:column>
+
+            <p:column headerText="Date of Birth" style="width: 15%">
+                <h:outputText value="#{client.dateOfBirth}" />
+            </p:column>
+
+            <p:column headerText="Gender" style="width: 15%">
+                <h:outputText value="#{client.gender}" />
+            </p:column>
+
+            <p:column headerText="Actions" style="width: 10%">
+                <p:commandButton value="Edit"
+                                 icon="pi pi-pencil"
+                                 action="#{clientBean.prepareEdit(client)}"
+                                 oncomplete="PF('editClientDialog').show();"
+                                 update=":editClientDialogForm" />
+            </p:column>
+
+        </p:dataTable>
+
+        <div class="navigation-buttons">
+            <h:commandLink value="Back to Main Page" action="/index.xhtml" />
+        </div>
+
+    </h:form>
+
+    <p:dialog header="Create New Client" widgetVar="clientDialog" resizable="false" modal="true" showEffect="fade" hideEffect="fade">
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="name" value="Name"/>
+                <p:inputText id="name" value="#{clientBean.currentClient.name}" required="true" requiredMessage="Client name is required." />
+
+                <h:outputLabel for="email" value="Email:"/>
+                <p:inputText id="email" value="#{clientBean.currentClient.email}" required="true" requiredMessage="Client email is required." />
+
+                <h:outputLabel for="phone" value="Phone Number:"/>
+                <p:inputText id="phone" value="#{clientBean.currentClient.phone}" required="true" requiredMessage="Client phone is required." />
+
+                <h:outputLabel for="address" value="Address:"/>
+                <p:inputTextarea id="address" value="#{clientBean.currentClient.address}" rows="3" cols="30" required="true" requiredMessage="Client address is required."/>
+
+                <h:outputLabel for="dateOfBirth" value="Date of Birth:"/>
+                <p:datePicker id="dateOfBirth" value="#{clientBean.currentClient.dateOfBirth}" required="true" requiredMessage="Date of birth is required." />
+
+                <h:outputLabel for="newGender" value="Gender:"/>
+                <p:selectOneMenu id="newGender" value="#{clientBean.currentClient.gender}" required="true" requiredMessage="Gender is required.">
+                    <f:selectItem itemLabel="Select Gender" itemValue="" />
+                    <f:selectItem itemLabel="Male" itemValue="Male" />
+                    <f:selectItem itemLabel="Female" itemValue="Female" />
+                    <f:selectItem itemLabel="Other" itemValue="Other" />
+                </p:selectOneMenu>
+
+            </h:panelGrid>
+
+            <p:commandButton value="Save" action="#{clientBean.saveClient}" oncomplete="PF('clientDialog').hide();" update=":clientForm:clientsTable" />
+        </h:form>
+    </p:dialog>
+
+    <p:dialog header="Edit Client" widgetVar="editClientDialog" resizable="false" modal="true" showEffect="fade" hideEffect="fade">
+        <h:form id="editClientDialogForm">
+            <h:panelGrid columns="2">
+                <h:outputLabel for="editName" value="Name:"/>
+                <p:inputText id="editName" value="#{clientBean.currentClient.name}" required="true" requiredMessage="Client name is required." />
+
+                <h:outputLabel for="editEmail" value="Email:"/>
+                <p:inputText id="editEmail" value="#{clientBean.currentClient.email}" required="true" requiredMessage="Client email is required." />
+
+                <h:outputLabel for="editPhone" value="Phone Number:"/>
+                <p:inputText id="editPhone" value="#{clientBean.currentClient.phone}" required="true" requiredMessage="Client phone is required." />
+
+                <h:outputLabel for="editAddress" value="Address:"/>
+                <p:inputTextarea id="editAddress" value="#{clientBean.currentClient.address}" rows="3" cols="30" required="true" requiredMessage="Client address is required."/>
+
+                <h:outputLabel for="editDateOfBirth" value="Date of Birth:"/>
+                <p:datePicker id="editDateOfBirth" value="#{clientBean.currentClient.dateOfBirth}" required="true" requiredMessage="Date of birth is required." />
+
+                <h:outputLabel for="editGender" value="Gender:"/>
+                <p:selectOneMenu id="editGender" value="#{clientBean.currentClient.gender}" required="true" requiredMessage="Gender is required.">
+                    <f:selectItem itemLabel="Select Gender" itemValue="" />
+                    <f:selectItem itemLabel="Male" itemValue="Male" />
+                    <f:selectItem itemLabel="Female" itemValue="Female" />
+                    <f:selectItem itemLabel="Other" itemValue="Other" />
+                </p:selectOneMenu>
+
+            </h:panelGrid>
+
+            <p:commandButton value="Update" action="#{clientBean.saveClient}" oncomplete="PF('editClientDialog').hide();" update=":clientForm:clientsTable" />
+        </h:form>
+    </p:dialog>
+
+</h:body>
+</html>
