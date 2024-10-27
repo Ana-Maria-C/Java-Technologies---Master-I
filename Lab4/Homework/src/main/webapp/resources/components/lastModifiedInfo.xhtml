@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+
+<composite:interface>
+        <composite:attribute name="lastModifiedClient" required="true" />
+        <composite:attribute name="lastModifiedDate" required="true" />
+    </composite:interface>
+
+    <composite:implementation>
+        <h:panelGrid columns="2">
+            <h:panelGroup rendered="#{not empty cc.attrs.lastModifiedClient and not empty cc.attrs.lastModifiedDate}">
+                <h:outputText value="Last Modified By: #{cc.attrs.lastModifiedClient}" />
+                <h:outputText value=" on #{cc.attrs.lastModifiedDate}" />
+            </h:panelGroup>
+            <h:panelGroup rendered="#{empty cc.attrs.lastModifiedClient or empty cc.attrs.lastModifiedDate}">
+                <h:outputText value="No modification information available." />
+            </h:panelGroup>
+        </h:panelGrid>
+    </composite:implementation>
+
+</html>

@@ -1,0 +1,56 @@
+<ui:composition template="page.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+
+    <ui:define name="content">
+        <h:form id="clientSearchForm">
+            <cc:lastModifiedInfo lastModifiedClient="#{clientBean.lastModifiedClient.name}"
+                                 lastModifiedDate="#{clientBean.lastModifiedDate}" />
+
+            <h:panelGrid columns="2">
+                <h:outputLabel for="clientId" value="Client ID:" />
+                <h:inputText id="clientId" value="#{clientBean.currentClient.id}" required="true" />
+                <h:commandButton value="Get Client" action="#{clientBean.getClientById(clientBean.currentClient.id)}" />
+            </h:panelGrid>
+
+        </h:form>
+
+        <h:panelGrid id="clientInfoPanel" columns="2" rendered="#{not empty clientBean.currentClient.id}">
+            <h:outputLabel value="Client ID:" />
+            <h:outputText value="#{clientBean.currentClient.id}" />
+
+            <h:outputLabel value="Name:" />
+            <h:outputText value="#{clientBean.currentClient.name}" />
+
+            <h:outputLabel value="Email:" />
+            <h:outputText value="#{clientBean.currentClient.email}" />
+
+            <h:outputLabel value="Phone:" />
+            <h:outputText value="#{clientBean.currentClient.phone}" />
+
+            <h:outputLabel value="Address:" />
+            <h:outputText value="#{clientBean.currentClient.address}" />
+
+            <h:outputLabel value="Date of Birth:" />
+            <h:outputText value="#{clientBean.currentClient.dateOfBirth}" />
+
+            <h:outputLabel value="Gender:" />
+            <h:outputText value="#{clientBean.currentClient.gender}" />
+
+            <h:commandButton value="Edit Client" onclick="PF('dataEditDialog').show();" type="button" />
+
+        </h:panelGrid>
+        <p:dialog id="dataEditDialog" widgetVar="dataEditDialog" header="Edit Client"
+                  modal="true" appendTo="@(body)" resizable="false" closable="true"
+                  width="500" height="300">
+            <ui:include src="genericForm.xhtml">
+                <ui:param name="formId" value="dataEditForm" />
+                <ui:param name="clientBean" value="#{clientBean}" />
+            </ui:include>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>
