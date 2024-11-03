@@ -1,4 +1,4 @@
-package com.example.homework.bean;
+package com.example.compulsory5.bean;
 import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.ViewScoped;
 import jakarta.faces.context.ExternalContext;
@@ -13,18 +13,7 @@ public class RedirectBean {
         ExternalContext externalContext = facesContext.getExternalContext();
 
         try {
-            externalContext.redirect("clientsView.xhtml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void redirectToEditDataPage() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-
-        try {
-            externalContext.redirect("dataEdit.xhtml");
+            externalContext.redirect("dataView.xhtml");
         } catch (Exception e) {
             e.printStackTrace();
         }

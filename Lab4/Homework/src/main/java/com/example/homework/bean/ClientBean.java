@@ -11,7 +11,9 @@ import java.time.format.DateTimeFormatter;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ManagedBean(name="clientBean")
 @SessionScoped
@@ -165,5 +167,45 @@ public class ClientBean {
         this.currentClient = new Client();
     }
 
+    public List<Map<String, String>> getColumnDefinitions() {
+        List<Map<String, String>> columns = new ArrayList<>();
+
+        Map<String, String> idColumn = new HashMap<>();
+        idColumn.put("header", "ID");
+        idColumn.put("property", "id");
+        columns.add(idColumn);
+
+        Map<String, String> nameColumn = new HashMap<>();
+        nameColumn.put("header", "Nume");
+        nameColumn.put("property", "name");
+        columns.add(nameColumn);
+
+        Map<String, String> emailColumn = new HashMap<>();
+        emailColumn.put("header", "Email");
+        emailColumn.put("property", "email");
+        columns.add(emailColumn);
+
+        Map<String, String> phoneColumn = new HashMap<>();
+        phoneColumn.put("header", "Phone Number");
+        phoneColumn.put("property", "phone");
+        columns.add(phoneColumn);
+
+        Map<String, String> addressColumn = new HashMap<>();
+        addressColumn.put("header", "Address");
+        addressColumn.put("property", "address");
+        columns.add(addressColumn);
+
+        Map<String, String> dobColumn = new HashMap<>();
+        dobColumn.put("header", "Date of Birth");
+        dobColumn.put("property", "dateOfBirth");
+        columns.add(dobColumn);
+
+        Map<String, String> genderColumn = new HashMap<>();
+        genderColumn.put("header", "Gender");
+        genderColumn.put("property", "gender");
+        columns.add(genderColumn);
+
+        return columns;
+    }
 
 }

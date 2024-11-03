@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>My Order</title>
+</h:head>
+<h:body>
+    <h:form id="orderForm">
+        <h:outputText value="Current Order" />
+
+        <h:dataTable value="#{orderBean.currentOrder.productQuantities}" var="entry">
+            <h:column>
+                <h:outputText value="#{entry.value}" />
+            </h:column>
+
+            <h:column>
+                <h:outputText value="#{entry.key.name}" />
+            </h:column>
+
+        </h:dataTable>
+
+        <p:commandButton value="Add Product" onclick="PF('addProductDialog').show();" process="@this" update="addProductForm" />
+        <br/>
+        <br/>
+        <p:commandButton value="Submit Order" action="#{orderBean.submitOrder}" update="orderForm" process="@this" />
+
+        <p:dialog header="Add Product" widgetVar="addProductDialog" modal="true">
+            <h:panelGrid id="addProductForm" columns="2">
+                <h:outputLabel for="productSelect" value="Select Product" />
+                <p:selectOneMenu id="productSelect" value="#{orderBean.selectedProductId}">
+                    <f:selectItems value="#{productBean.allProducts}" var="product" itemValue="#{product.id}" itemLabel="#{product.name}" />
+                </p:selectOneMenu>
+
+                <h:outputLabel />
+                <h:outputLabel for="quantityInput" value="Quantity" />
+                <p:inputText id="quantityInput" value="#{orderBean.selectedQuantity}" />
+
+
+                <h:outputLabel />
+                <p:commandButton value="Add to Order"
+                                 action="#{orderBean.addProduct(orderBean.selectedProductId, orderBean.selectedQuantity)}"
+                                 update="orderForm" process="@form" oncomplete="PF('addProductDialog').hide();" />
+
+
+            </h:panelGrid>
+        </p:dialog>
+
+
+        <h:outputText value="Client's Past Orders" style="font-weight:bold; margin-top:20px; display:block;" />
+        <br/>
+        <h:panelGroup rendered="#{not empty orderBean.clientOrders}">
+            <h:dataTable value="#{orderBean.clientOrders}" var="order" style="margin-bottom:20px;">
+                <h:column>
+                    <f:facet name="header">Order ID</f:facet>
+                    <h:outputText value="#{order.id}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Order Date</f:facet>
+                    <h:outputText value="#{order.orderDate}">
+                        <f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:dataTable value="#{order.productQuantities.entrySet().toArray()}" var="entry">
+                        <h:column>
+                            <f:facet name="header">Quantity</f:facet>
+                            <h:outputText value="#{entry.value}" />
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Product</f:facet>
+                            <h:outputText value="#{entry.key.name}" />
+                        </h:column>
+
+                    </h:dataTable>
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{empty orderBean.clientOrders}">
+            <h:outputText value="No past orders" style="color:gray;" />
+        </h:panelGroup>
+
+    </h:form>
+</h:body>
+</html>

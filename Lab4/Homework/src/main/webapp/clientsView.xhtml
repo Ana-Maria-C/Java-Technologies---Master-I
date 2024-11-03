@@ -1,0 +1,10 @@
+<ui:composition template="dataView.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:param name="title" value="Client List" />
+    <ui:param name="dataList" value="#{clientBean.clients}" />
+    <ui:param name="columns" value="#{clientBean.columnDefinitions}" />
+
+</ui:composition>
