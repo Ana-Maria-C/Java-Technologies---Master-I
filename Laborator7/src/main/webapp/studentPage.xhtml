@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Evaluation Page</title>
+</h:head>
+<h:body>
+    <h:form id="evaluationForm">
+        <h:commandButton value="Logout" action="#{userBean.logout}" />
+        <br/>
+        <br/>
+        <br/>
+        <p:commandButton value="View Evaluations" actionListener="#{evaluationBean.loadEvaluationsOfLoggedStudent()}" update="evaluationTable evaluationForm" />
+        <br/>
+        <p:dataTable id="evaluationTable" value="#{evaluationBean.evaluationsOfStudent}" var="evaluation" rendered="#{not empty evaluationBean.evaluationsOfStudent}">
+            <p:column headerText="Subject">
+                <h:outputText value="#{subjectBean.getSubjectById(evaluation.subject_id)}" />
+            </p:column>
+            <p:column headerText="Teacher">
+                <h:outputText value="#{userBean.getUserById(evaluation.teacher_id)}" />
+            </p:column>
+            <p:column headerText="Activity Type">
+                <h:outputText value="#{evaluation.activity_type}" />
+            </p:column>
+            <p:column headerText="Grade">
+                <h:outputText value="#{evaluation.grade}" />
+            </p:column>
+            <p:column headerText="Comment">
+                <h:outputText value="#{evaluation.comment}" />
+            </p:column>
+        </p:dataTable>
+        <br/>
+
+        <h3>Add new Evaluation"</h3>
+        <p:commandButton value="Select Teacher" actionListener="#{evaluationBean.loadTeachers}" update="teacherModal" oncomplete="PF('teacherDialog').show();" />
+        <p:dialog id="teacherModal" widgetVar="teacherDialog" header="Select Teacher" modal="true" closable="true">
+            <h:panelGrid columns="1">
+                <h:selectOneMenu value="#{evaluationBean.teacherId}">
+                    <f:selectItems value="#{evaluationBean.teachers}" var="teacher" itemValue="#{teacher.id}" itemLabel="#{teacher.name}" />
+                </h:selectOneMenu>
+                <p:commandButton value="OK" actionListener="#{evaluationBean.loadSubjectsForTeacher}" update="subjectModal" oncomplete="PF('teacherDialog').hide();" />
+            </h:panelGrid>
+        </p:dialog>
+        <br/>
+        <br/>
+
+        <p:commandButton value="Select Subject" actionListener="#{evaluationBean.loadSubjectsForTeacher}" update="subjectModal" oncomplete="PF('subjectDialog').show();" />
+        <p:dialog id="subjectModal" widgetVar="subjectDialog" header="Select Subject" modal="true" closable="true">
+            <h:panelGrid columns="1">
+                <h:selectOneMenu value="#{evaluationBean.subjectId}" >
+                    <f:selectItems value="#{evaluationBean.subjectsForTeacher}" var="subject" itemValue="#{subject.id}" itemLabel="#{subject.name}" />
+                </h:selectOneMenu>
+                <p:commandButton value="OK" actionListener="#{evaluationBean.loadSubjectsForTeacher}" update="subjectModal" oncomplete="PF('subjectDialog').hide();" />
+            </h:panelGrid>
+        </p:dialog>
+
+    </h:form>
+
+    <h:form>
+        <h:outputLabel for="activityType" value="Activity Type" />
+        <h:selectOneMenu id="activityType" value="#{evaluationBean.activityType}" required="true">
+            <f:selectItem itemLabel="Select Type" itemValue="" />
+            <f:selectItem itemLabel="Course" itemValue="Course" />
+            <f:selectItem itemLabel="Laboratory" itemValue="Laboratory" />
+        </h:selectOneMenu>
+        <br/>
+        <br/>
+
+        <h:outputLabel for="grade" value="Grade" />
+        <h:selectOneMenu id="grade" value="#{evaluationBean.grade}" required="true">
+            <f:selectItem itemLabel="Select Grade" itemValue="" />
+            <f:selectItems value="#{evaluationBean.grades}" />
+        </h:selectOneMenu>
+        <br/>
+        <br/>
+
+        <h:outputLabel for="comment" value="Comment" />
+        <h:inputTextarea id="comment" value="#{evaluationBean.comment}" />
+        <br/>
+        <br/>
+
+        <p:commandButton value="Submit Evaluation" action="#{evaluationBean.createEvaluation}" update="evaluationForm evaluationTable" />
+        <br/>
+        <br/>
+        <br/>
+    </h:form>
+</h:body>
+</html>
