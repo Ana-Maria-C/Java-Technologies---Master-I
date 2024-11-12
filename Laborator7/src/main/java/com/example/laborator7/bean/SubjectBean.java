@@ -25,7 +25,6 @@ public class SubjectBean implements Serializable {
     private SubjectRepository subjectRepository;
     @Inject
     UserRepository userRepository;
-
     private List<Subject> subjects;
     private List<Subject> subjectsByTeacher;
     private String name;

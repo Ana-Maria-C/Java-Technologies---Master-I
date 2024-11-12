@@ -1,11 +1,8 @@
 package com.example.laborator7.interceptor;
 
-import com.example.laborator7.bean.UserBean;
-import com.example.laborator7.model.User;
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
-import jakarta.inject.Inject;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

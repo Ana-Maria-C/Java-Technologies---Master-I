@@ -1,6 +1,7 @@
 package com.example.laborator7.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -16,8 +17,10 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Name cannot be blank")
     private String name;
+    @NotBlank(message = "Email is required")
     private String email;
+    @NotBlank(message = "Password is required")
     private String password;
-
 }
