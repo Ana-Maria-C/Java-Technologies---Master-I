@@ -6,11 +6,13 @@ import com.example.laborator7.model.Evaluation;
 import com.example.laborator7.model.Subject;
 import com.example.laborator7.model.Teacher;
 import com.example.laborator7.model.User;
+import com.example.laborator7.observers.EvaluationCreatedEvent;
 import com.example.laborator7.repository.EvaluationRepository;
 import com.example.laborator7.repository.SubjectRepository;
 import com.example.laborator7.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
@@ -44,6 +46,9 @@ public class EvaluationBean implements Serializable {
     @Inject
     EvaluationService evaluationService;
 
+    @Inject
+    private Event<EvaluationCreatedEvent> event;
+
     private Long subjectId;
     private Long teacherId;
     private Long studentId;
@@ -53,14 +58,12 @@ public class EvaluationBean implements Serializable {
     private List<Teacher> teachers;
     private List<Subject> subjectsForTeacher;
     private Evaluation evaluation = new Evaluation();
-
     private List<Evaluation> evaluations;
     private List<Evaluation> evaluationsOfStudent;
     private List<Evaluation> evaluationsOfTeacher;
     private List<Integer> grades;
     private final LocalDateTime evaluationStartDate = LocalDateTime.of(2024, 11, 10, 8, 0);
     private final LocalDateTime evaluationEndDate = LocalDateTime.of(2024, 11, 20, 14, 0);
-
 
     @PostConstruct
     public void init() {
@@ -82,6 +85,7 @@ public class EvaluationBean implements Serializable {
             evaluation.setGrade(grade);
             evaluation.setComment(comment);
             evaluationService.createEvaluation(evaluation);
+            event.fire(new EvaluationCreatedEvent(evaluation.getId()));
             evaluation = new Evaluation();
 
     }
