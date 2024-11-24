@@ -1,6 +1,7 @@
 package com.example.laborator7.bean;
 
 import com.example.laborator7.RegistrationNumberGenerator;
+import com.example.laborator7.decorator.EvaluationService;
 import com.example.laborator7.model.Evaluation;
 import com.example.laborator7.model.Subject;
 import com.example.laborator7.model.Teacher;
@@ -40,6 +41,9 @@ public class EvaluationBean implements Serializable {
     @Inject
     private RegistrationNumberGenerator registrationNumberGenerator;
 
+    @Inject
+    EvaluationService evaluationService;
+
     private Long subjectId;
     private Long teacherId;
     private Long studentId;
@@ -64,7 +68,7 @@ public class EvaluationBean implements Serializable {
     }
 
     public void createEvaluation() {
-        if (isWithinEvaluationPeriod()) {
+
             String registrationNumber = registrationNumberGenerator.generateRegistrationNumber();
             evaluation.setRegistration_number(registrationNumber);
             evaluation.setTimestamp(LocalDateTime.now());
@@ -77,9 +81,9 @@ public class EvaluationBean implements Serializable {
             evaluation.setActivity_type(activityType);
             evaluation.setGrade(grade);
             evaluation.setComment(comment);
-            evaluationRepository.save(evaluation);
+            evaluationService.createEvaluation(evaluation);
             evaluation = new Evaluation();
-        }
+
     }
 
     private boolean isWithinEvaluationPeriod() {
