@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Welcome</title>
+</h:head>
+<h:body>
+    <h:outputText value="Welcome, #{userBean.loggedInUser.name}!" />
+    <h:form id="mainForm">
+        <h:commandButton value="Logout" action="#{userBean.logout}" />
+
+        <h4> View Data </h4>
+
+        <h:commandButton value="Get Students" action="#{userBean.getAllStudents}" />
+        <br/>
+        <h:commandButton value="Get Teachers" action="#{userBean.getAllTeachers}" />
+        <br/>
+        <h:commandButton value="Get Subjects" action="#{subjectBean.getAllSubjects()}" />
+        <br/>
+        <h:commandButton value="Get All Evaluations" action="#{evaluationBean.getAllEvaluations}" />
+        <br/>
+
+        <h4>Edit Data</h4>
+        <p:commandButton value="Add New Subject" icon="pi pi-plus" oncomplete="PF('subjectDialog').show()" />
+        <br/>
+        <br/>
+        <br/>
+
+        <h:outputText value="Students" rendered="#{not empty userBean.students}" />
+        <p:dataTable value="#{userBean.students}" var="student" rendered="#{not empty userBean.students}">
+            <p:column headerText="ID">
+                <h:outputText value="#{student.id}" />
+            </p:column>
+            <p:column headerText="Name">
+                <h:outputText value="#{student.name}" />
+            </p:column>
+            <p:column headerText="Email">
+                <h:outputText value="#{student.email}" />
+            </p:column>
+        </p:dataTable>
+        <br/>
+
+        <h:outputText value="Teachers" rendered="#{not empty userBean.teachers}" />
+        <p:dataTable value="#{userBean.teachers}" var="teacher" rendered="#{not empty userBean.teachers}">
+            <p:column headerText="ID">
+                <h:outputText value="#{teacher.id}" />
+            </p:column>
+            <p:column headerText="Name">
+                <h:outputText value="#{teacher.name}" />
+            </p:column>
+            <p:column headerText="Email">
+                <h:outputText value="#{teacher.email}" />
+            </p:column>
+        </p:dataTable>
+        <br/>
+
+        <h:outputText value="Subjects" rendered="#{not empty subjectBean.subjects}" />
+        <p:dataTable value="#{subjectBean.subjects}" var="subject" rendered="#{not empty subjectBean.subjects}">
+            <p:column headerText="ID">
+                <h:outputText value="#{subject.id}" />
+            </p:column>
+            <p:column headerText="Name">
+                <h:outputText value="#{subject.name}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+    <br/>
+    <h:outputText value="Evaluations" rendered="#{not empty evaluationBean.evaluations}" />
+    <p:dataTable value="#{evaluationBean.evaluations}" var="evaluation" rendered="#{not empty evaluationBean.evaluations}">
+        <p:column headerText="ID">
+            <h:outputText value="#{evaluation.id}" />
+        </p:column>
+        <p:column headerText="Registration Number">
+            <h:outputText value="#{evaluation.registration_number}" />
+        </p:column>
+        <p:column headerText="Student Name">
+            <h:outputText value="#{userBean.getUserById(evaluation.student_id)}" />
+        </p:column>
+        <p:column headerText="Teacher Name">
+            <h:outputText value="#{userBean.getUserById(evaluation.teacher_id)}" />
+        </p:column>
+        <p:column headerText="Subject Name">
+            <h:outputText value="#{subjectBean.getSubjectById(evaluation.subject_id)}" />
+        </p:column>
+        <p:column headerText="Activity Type">
+            <h:outputText value="#{evaluation.activity_type}" />
+        </p:column>
+        <p:column headerText="Grade">
+            <h:outputText value="#{evaluation.grade}" />
+        </p:column>
+        <p:column headerText="Comment">
+            <h:outputText value="#{evaluation.comment}" />
+        </p:column>
+    </p:dataTable>
+
+    <h:form id="subjectForm">
+        <p:dialog header="Add New Subject" widgetVar="subjectDialog" modal="true" width="400">
+            <h:panelGrid columns="2">
+                <h:outputLabel for="subjectName" value="Subject Name: " />
+                <h:inputText id="subjectName" value="#{subjectBean.name}" required="true" />
+
+                <h:outputLabel value="Select Teachers: " />
+                <p:selectCheckboxMenu value="#{subjectBean.teacherIds}" label="Select Teachers" multiple="true">
+                    <f:selectItems value="#{userBean.teachers}" var="teacher"
+                                   itemValue="#{teacher.id}" itemLabel="#{teacher.name}" />
+                </p:selectCheckboxMenu>
+            </h:panelGrid>
+
+            <p:commandButton value="Add Subject" action="#{subjectBean.createSubject}"
+                             process="@form" update=":mainForm :mainForm:subjectTable"
+                             oncomplete="PF('subjectDialog').hide()" />
+        </p:dialog>
+    </h:form>
+</h:body>
+</html>

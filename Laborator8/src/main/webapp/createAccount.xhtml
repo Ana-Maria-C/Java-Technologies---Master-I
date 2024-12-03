@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Create Account </title>
+</h:head>
+<h:body>
+        <h:form>
+            <h:panelGrid columns="2" >
+
+                <h:outputLabel for="email" value="Email:" />
+                <h:inputText id="email" value="#{userBean.email}" required="true" />
+
+                <h:outputLabel for="password" value="Password:" />
+                <h:inputText id="password" value="#{userBean.password}" required="true" />
+
+                <h:outputLabel for="name" value="Name:" />
+                <h:inputText id="name" value="#{userBean.name}" required="true" />
+
+                <h:outputLabel for="role" value="Role:" />
+                <h:selectOneMenu id="role" value="#{userBean.role}">
+                    <f:selectItems value="#{userBean.roles}" var="role" itemLabel="#{role}" itemValue="#{role}" />
+                </h:selectOneMenu>
+
+                <h:commandButton value="Create" action="#{userBean.createAccount}" />
+            </h:panelGrid>
+            <br/>
+            <h:commandButton value="Go to Welcome Home" action="welcomehome.xhtml?faces-redirect=true" />
+        </h:form>
+</h:body>
+</html>
+
