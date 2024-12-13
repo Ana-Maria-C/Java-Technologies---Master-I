@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <data-source>
+        <name>java:global/jdbc/postgresDB</name>
+        <class-name>org.postgresql.ds.PGSimpleDataSource</class-name>
+        <server-name>localhost</server-name>
+        <port-number>5432</port-number>
+        <database-name>user_management</database-name>
+        <user>postgres</user>
+        <password>AnaMaria22!</password>
+    </data-source>
+
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>
+            jakarta.faces.webapp.FacesServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+
+    <security-constraint>
+        <display-name>Restrict access to admin resources</display-name>
+        <web-resource-collection>
+            <web-resource-name>Admin Resources</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>Restrict access to user resources</display-name>
+        <web-resource-collection>
+            <web-resource-name>User Resources</web-resource-name>
+            <url-pattern>/user/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>jdbcRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/loginError.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+
+    <welcome-file-list>
+        <welcome-file>postLogin.xhtml</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/user/accessDenied.xhtml</location>
+    </error-page>
+
+</web-app>

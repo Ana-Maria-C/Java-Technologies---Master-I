@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <title>Login</title>
+</head>
+<h:body>
+
+
+    <div class="main-content">
+        <h:form style="margin-top: 10px;">
+            <div class="form-panel">
+                <h2 >Register</h2>
+
+                <p:outputLabel for="name">Email</p:outputLabel>
+                <p:inputText value="#{userBean.email}" id="email"
+                             required="true" requiredMessage="You must enter an email"/>
+                <br/>
+                <p:outputLabel for="name">Name</p:outputLabel>
+                <p:inputText value="#{userBean.name}" id="name"
+                             required="true" requiredMessage="You must enter a name"/>
+
+                <br/>
+                <p:outputLabel for="password">Password</p:outputLabel>
+                <p:password  value="#{userBean.password}" id="password" match="password"
+                             required="true" requiredMessage="You must enter a password"/>
+
+
+                <p:selectBooleanCheckbox styleClass="admin-checkbox" value="#{userBean.admin}" itemLabel="Admin Account"/>
+                <p:messages id="errors" styleClass="errors"/>
+
+                <p:commandButton value="Register" update="@form" action="#{userBean.register()}" />
+
+            </div>
+            <div class="login-link">
+                Already have an account? <a href="login.xhtml">Login</a>
+            </div>
+        </h:form>
+    </div>
+
+</h:body>
+</html>

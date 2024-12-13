@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<h1>Welcome, Admin!</h1>
+<h2>Users:</h2>
+
+<h:dataTable value="#{userBean.users}" var="user">
+    <h:column>
+        <f:facet name="header">ID</f:facet>
+        #{user.id}
+    </h:column>
+    <h:column>
+        <f:facet name="header">Email</f:facet>
+        #{user.email}
+    </h:column>
+    <h:column>
+        <f:facet name="header">Name</f:facet>
+        #{user.name}
+    </h:column>
+
+</h:dataTable>
+
+<h:form>
+    <h:commandButton value="Logout" action="#{userBean.logout}" />
+</h:form>
+
+</body>
+</html>
