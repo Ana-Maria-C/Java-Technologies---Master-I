@@ -3,38 +3,45 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<head>
+<h:head>
     <title>Login</title>
-</head>
+</h:head>
 <h:body>
 
 
-    <div class="main-content">
+    <div >
         <h:form style="margin-top: 10px;">
-            <div class="form-panel">
+            <div >
                 <h2 >Register</h2>
 
                 <p:outputLabel for="name">Email</p:outputLabel>
                 <p:inputText value="#{userBean.email}" id="email"
                              required="true" requiredMessage="You must enter an email"/>
                 <br/>
+                <br/>
                 <p:outputLabel for="name">Name</p:outputLabel>
                 <p:inputText value="#{userBean.name}" id="name"
                              required="true" requiredMessage="You must enter a name"/>
 
+                <br/>
                 <br/>
                 <p:outputLabel for="password">Password</p:outputLabel>
                 <p:password  value="#{userBean.password}" id="password" match="password"
                              required="true" requiredMessage="You must enter a password"/>
 
 
-                <p:selectBooleanCheckbox styleClass="admin-checkbox" value="#{userBean.admin}" itemLabel="Admin Account"/>
-                <p:messages id="errors" styleClass="errors"/>
-
+                <br/>
+                <br/>
+                <p:selectBooleanCheckbox value="#{userBean.admin}" itemLabel="Admin Account"/>
+                <p:messages id="errors" />
+                <br/>
+                <br/>
                 <p:commandButton value="Register" update="@form" action="#{userBean.register()}" />
-
+                <br/>
+                <br/>
+                <br/>
             </div>
-            <div class="login-link">
+            <div >
                 Already have an account? <a href="login.xhtml">Login</a>
             </div>
         </h:form>

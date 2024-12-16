@@ -2,20 +2,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Welcome</title>
+
 </h:head>
 
 <h:body>
-    <h1>Welcome!</h1>
+    <div >
+        <h1 >Welcome to My Application!</h1>
 
-    <h:form>
-        <h:commandButton value="Login" action="login.xhtml">
-            <f:ajax execute="@this" render="@form" />
-        </h:commandButton>
-    </h:form>
-
+        <h:form>
+            <p:commandButton value="Login" action="login.xhtml">
+                <f:ajax execute="@this" render="@form" />
+            </p:commandButton>
+        </h:form>
+    </div>
 </h:body>
 </html>

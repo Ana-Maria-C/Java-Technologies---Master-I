@@ -3,24 +3,32 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<head>
+<h:head>
     <title>Login</title>
-</head>
+
+</h:head>
 <h:body>
 
 
     <div class="main-content">
         <form action="j_security_check">
             <div class="form-panel">
-                <div class="form-title">Login</div>
+                <h2>Login</h2>
 
-                <h:outputLabel for="j_username" value="Email" />
+                <p:outputLabel for="j_username" value="Email: " />
                 <h:inputText id="j_username" name="j_username" />
+                <br/>
+                <br/>
 
-                <h:outputLabel for="j_password" value="Password" />
+                <p:outputLabel for="j_password" value="Password: " />
                 <h:inputSecret id="j_password" name="j_password" />
+                <br/>
+                <br/>
 
-                <h:commandButton value="Login"/>
+                <p:commandButton value="Login"/>
+                <br/>
+                <br/>
+                <br/>
             </div>
             <div class="signup-link">
                 Create a new account <a href="register.xhtml">Signup</a>

@@ -1,33 +1,96 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
-<head>
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
     <title>Admin Dashboard</title>
-</head>
-<body>
+    <style type="text/css">body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f9;
+        color: #333;
+    }
+
+    h1 {
+        color: #4CAF50;
+        font-size: 24px;
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    .styled-table th, .styled-table td {
+        padding: 12px 15px;
+    }
+
+    .styled-table thead tr {
+        background-color: #4CAF50;
+        color: white;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:nth-of-type(odd) {
+        background-color: #ffffff;
+    }
+
+    .styled-table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .logout-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .logout-button:hover {
+        background-color: #45a049;
+    }</style>
+</h:head>
+<h:body>
 <h1>Welcome, Admin!</h1>
 <h2>Users:</h2>
 
-<h:dataTable value="#{userBean.users}" var="user">
-    <h:column>
-        <f:facet name="header">ID</f:facet>
-        #{user.id}
-    </h:column>
-    <h:column>
-        <f:facet name="header">Email</f:facet>
-        #{user.email}
-    </h:column>
-    <h:column>
-        <f:facet name="header">Name</f:facet>
-        #{user.name}
-    </h:column>
-
-</h:dataTable>
+<p:dataTable value="#{userBean.users}" var="user"
+             styleClass="styled-table"
+             paginator="false" rows="5"
+             rowStyleClass="even-row,odd-row">
+    <p:column headerText="ID">
+        <h:outputText value="#{user.id}" />
+    </p:column>
+    <p:column headerText="Email">
+        <h:outputText value="#{user.email}" />
+    </p:column>
+    <p:column headerText="Name">
+        <h:outputText value="#{user.name}" />
+    </p:column>
+</p:dataTable>
 
 <h:form>
-    <h:commandButton value="Logout" action="#{userBean.logout}" />
+    <h:commandButton value="Logout" action="#{userBean.logout}" styleClass="logout-button"/>
 </h:form>
 
-</body>
+</h:body>
 </html>
